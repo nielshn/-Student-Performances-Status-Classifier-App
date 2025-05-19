@@ -23,16 +23,47 @@ Lembaga pendidikan tinggi menghadapi tantangan dalam menurunkan angka dropout da
 
 ### Setup Environment
 
+**Opsi 1: Menggunakan Anaconda**
+
 ```bash
-python -m venv venv
-source venv/bin/activate  # atau venv\Scripts\activate untuk Windows
+conda create --name main-ds python=3.9
+conda activate main-ds
 pip install -r requirements.txt
 ```
 
-### Menjalankan Skrip Prediksi
+**Opsi 2: Menggunakan pipenv**
+
+```bash
+pip install pipenv
+pipenv install
+pipenv shell
+pip install -r requirements.txt
+```
+
+**Opsi 3: Menggunakan pip langsung**
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+#### Cara Menjalankan Skrip Prediksi Python (.py)
+
+File utama untuk prediksi adalah `predict.py`.  
+Jalankan perintah berikut di terminal (pastikan sudah berada di folder project dan environment sudah aktif):
 
 ```bash
 python predict.py --input data/sample_input.csv --output hasil_prediksi.csv
+```
+
+- `--input` : path ke file csv yang ingin diprediksi
+- `--output` : path file hasil prediksi
+
+Contoh:
+
+```bash
+python predict.py --input data/employee_test.csv --output data/prediksi_attrition.csv
 ```
 
 ## 📊 Business Dashboard
@@ -46,31 +77,59 @@ Dashboard interaktif dibangun menggunakan **Streamlit**, menampilkan:
 
 🔑 **Akses Dashboard**:
 
-- **URL (Streamlit Cloud):** [Link Project Streamlit](https://share.streamlit.io/your-app-link)
+- **URL (Streamlit Cloud):** [Link Project Streamlit](https://studentsperformancesclassifier-niels.streamlit.app/)
+  ![Student Status Classifier App](image.png)
 
 ## 🤖 Modeling & Evaluation
 
-Tiga model utama digunakan dan dibandingkan:
+Tiga model utama digunakan dan dibandingkan pada data uji:
 
-1. **Logistic Regression**
+### 1. Random Forest
 
-   - Accuracy: 0.77
-   - Macro F1-score: 0.73
-   - ROC AUC: 0.83
+| Class        | Precision | Recall | F1-score | Support |
+| ------------ | --------- | ------ | -------- | ------- |
+| 0 (Dropout)  | 0.84      | 0.71   | 0.77     | 284     |
+| 1 (Enrolled) | 0.81      | 0.90   | 0.86     | 442     |
+| 2 (Graduate) | 0.47      | 0.45   | 0.46     | 159     |
 
-2. **Random Forest**
+- **Accuracy:** 0.76
+- **Macro F1-score:** 0.69
+- **Weighted F1-score:** 0.76
 
-   - Accuracy: 0.82
-   - Macro F1-score: 0.76
-   - ROC AUC: 0.86
+---
 
-3. **XGBoost**
+### 2. XGBoost
 
-   - Accuracy: 0.84
-   - Macro F1-score: 0.78
-   - ROC AUC: 0.88
+| Class        | Precision | Recall | F1-score | Support |
+| ------------ | --------- | ------ | -------- | ------- |
+| 0 (Dropout)  | 0.83      | 0.73   | 0.78     | 284     |
+| 1 (Enrolled) | 0.81      | 0.92   | 0.86     | 442     |
+| 2 (Graduate) | 0.52      | 0.42   | 0.46     | 159     |
 
-> **Catatan:** Model **XGBoost** menunjukkan performa terbaik secara keseluruhan dan dipilih untuk deployment karena kombinasi akurasi dan ketahanannya terhadap data tidak seimbang.
+- **Accuracy:** 0.77
+- **Macro F1-score:** 0.70
+- **Weighted F1-score:** 0.76
+
+---
+
+### 3. CatBoost
+
+| Class        | Precision | Recall | F1-score | Support |
+| ------------ | --------- | ------ | -------- | ------- |
+| 0 (Dropout)  | 0.81      | 0.71   | 0.76     | 284     |
+| 1 (Enrolled) | 0.82      | 0.91   | 0.86     | 442     |
+| 2 (Graduate) | 0.50      | 0.45   | 0.47     | 159     |
+
+- **Accuracy:** 0.76
+- **Macro F1-score:** 0.70
+- **Weighted F1-score:** 0.76
+
+---
+
+> **Catatan:**
+> Model **XGBoost** menunjukkan performa terbaik secara keseluruhan pada data uji, terutama pada kelas mayoritas (Enrolled dan Dropout), meskipun performa pada kelas Graduate masih perlu ditingkatkan. Model ini dipilih untuk deployment karena kombinasi akurasi, macro F1-score, dan ketahanannya terhadap data tidak seimbang.
+
+---
 
 ## ✅ Conclusion
 
@@ -113,5 +172,4 @@ Model final XGBoost disimpan dalam format `.pkl` dan digunakan oleh aplikasi Str
 
 ## 👥 Author
 
-Daniel Siahaan - Machine Learning @ LaskarAi 2025
-Capstone Bangkit 2024 - Student Academic Status Classification Project
+Daniel Siahaan - Machine Learning @ LaskarAi 2025 - Student Academic Status Classification Project
