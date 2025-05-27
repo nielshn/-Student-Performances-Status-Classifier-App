@@ -118,7 +118,7 @@ Akan terbuka di browser: [http://localhost:8501/](http://localhost:8501/)
 ### Akses versi online (Streamlit Cloud)
 
 🔗 [Student Status Classifier App](https://studentsperformancesclassifier-niels.streamlit.app/)
-![Student Status Classifier App](image.png)
+![Student Status Classifier App](image.jpeg)
 
 ### Fitur Aplikasi:
 
