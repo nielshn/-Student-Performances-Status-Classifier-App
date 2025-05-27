@@ -2,7 +2,21 @@
 
 ## 🧠 Business Understanding
 
-Lembaga pendidikan tinggi menghadapi tantangan dalam menurunkan angka dropout dan meningkatkan tingkat kelulusan mahasiswa. Untuk itu, diperlukan pendekatan berbasis data yang dapat membantu mengidentifikasi mahasiswa yang berisiko gagal sejak awal masa studi.
+Business Understanding merupakan tahap awal yang krusial dalam proses data science karena menjadi dasar pemahaman konteks bisnis dan tujuan proyek.  
+Lembaga pendidikan tinggi dihadapkan pada tantangan serius terkait tingginya angka mahasiswa yang mengalami dropout (putus studi) dan rendahnya tingkat kelulusan tepat waktu.  
+Permasalahan ini berdampak langsung pada reputasi institusi, efisiensi operasional, serta alokasi sumber daya kampus. Jika tidak ditangani, institusi akan kesulitan dalam merancang kebijakan akademik yang efektif, kehilangan potensi lulusan berkualitas, dan menghadapi tekanan dari regulator maupun masyarakat.
+
+**Mengapa isu ini penting?**
+
+- Dropout menyebabkan pemborosan sumber daya (waktu, biaya, tenaga pengajar).
+- Mahasiswa yang gagal lulus tepat waktu dapat menurunkan akreditasi dan kepercayaan publik.
+- Institusi membutuhkan sistem prediksi berbasis data untuk mengidentifikasi mahasiswa berisiko sejak awal, sehingga intervensi dapat dilakukan secara proaktif.
+
+**Dampak bisnis jika masalah tidak ditangani:**
+
+- Penurunan jumlah lulusan dan reputasi kampus.
+- Efisiensi operasional menurun akibat sumber daya yang tidak termanfaatkan optimal.
+- Kesulitan dalam perencanaan dan pengambilan keputusan berbasis data.
 
 ### 🌟 Permasalahan Bisnis
 
@@ -77,8 +91,43 @@ Dashboard interaktif dibangun menggunakan **Streamlit**, menampilkan:
 
 🔑 **Akses Dashboard**:
 
-- **URL (Streamlit Cloud):** [Link Project Streamlit](https://studentsperformancesclassifier-niels.streamlit.app/)
-  ![Student Status Classifier App](image.png)
+- **URL**: [http://localhost:3000](http://localhost:3000)
+- **Email**: [root@mail.com](mailto:root@mail.com)
+- **Password**: root123
+
+### 📄 Ekspor Dashboard
+
+Jika menggunakan Docker:
+
+```bash
+docker export metabase > metabase_dashboard_export.tar
+```
+
+## 🤖 Streamlit ML Prototype
+
+Solusi machine learning telah di-deploy menggunakan **Streamlit** dalam file `app.py`.
+
+### Menjalankan secara lokal:
+
+```bash
+streamlit run app.py
+```
+
+Akan terbuka di browser: [http://localhost:8501/](http://localhost:8501/)
+
+### Akses versi online (Streamlit Cloud)
+
+🔗 [Student Status Classifier App](https://studentsperformancesclassifier-niels.streamlit.app/)
+![Student Status Classifier App](image.png)
+
+### Fitur Aplikasi:
+
+- Upload CSV data mahasiswa
+- Prediksi status akademik (Dropout / Graduate / Enrolled)
+- Tabel + visualisasi distribusi prediksi
+- Export hasil ke file .csv
+
+---
 
 ## 🤖 Modeling & Evaluation
 
@@ -126,25 +175,25 @@ Tiga model utama digunakan dan dibandingkan pada data uji:
 
 ---
 
-> **Catatan:**
+> **Catatan:**  
 > Model **XGBoost** menunjukkan performa terbaik secara keseluruhan pada data uji, terutama pada kelas mayoritas (Enrolled dan Dropout), meskipun performa pada kelas Graduate masih perlu ditingkatkan. Model ini dipilih untuk deployment karena kombinasi akurasi, macro F1-score, dan ketahanannya terhadap data tidak seimbang.
 
 ---
 
 ## ✅ Conclusion
 
-Berdasarkan analisis dan hasil modeling, ditemukan bahwa:
+Berdasarkan analisis dan hasil modeling, ditemukan beberapa temuan utama terkait karakteristik mahasiswa yang berpotensi dropout dan insight bagi institusi pendidikan:
 
-- Mahasiswa dari jalur studi tertentu seperti _Technology_ dan _Management_ memiliki tingkat dropout lebih tinggi.
-- Faktor sosial ekonomi seperti tingkat pendapatan dan latar belakang pendidikan orang tua memiliki korelasi kuat dengan performa akademik.
-- Mahasiswa dengan skor awal rendah pada mata kuliah dasar lebih berisiko mengalami dropout.
-- Model prediksi memberikan akurasi tinggi dan membantu memetakan risiko akademik mahasiswa sejak awal semester.
-
-Dengan sistem ini, pihak kampus dapat:
-
-- Mengantisipasi potensi kegagalan akademik lebih dini
-- Memberikan intervensi akademik secara terarah (mentoring, remedial, beasiswa)
-- Menyusun kebijakan akademik berdasarkan data, bukan asumsi
+- **Karakteristik Mahasiswa Dropout:**  
+  Mahasiswa yang berpotensi dropout umumnya memiliki nilai akademik rendah pada semester awal, tingkat kehadiran yang buruk, serta berasal dari latar belakang sosial ekonomi yang kurang mendukung (misal: pendapatan keluarga rendah, pendidikan orang tua rendah, atau tidak menerima beasiswa).
+- **Faktor Risiko:**  
+  Program studi tertentu, mahasiswa laki-laki, dan mereka yang tidak aktif dalam kegiatan akademik cenderung memiliki risiko dropout lebih tinggi.
+- **Alasan Dropout:**  
+  Selain faktor akademik, tekanan ekonomi dan kurangnya dukungan sosial menjadi alasan utama mahasiswa tidak melanjutkan studi.
+- **Manfaat Model:**  
+  Model prediksi ini dapat digunakan institusi untuk mengidentifikasi mahasiswa berisiko sejak awal semester, sehingga intervensi seperti mentoring, remedial, atau bantuan finansial dapat diberikan secara tepat sasaran.
+- **Dampak Bisnis:**  
+  Dengan sistem ini, kampus dapat meningkatkan tingkat kelulusan, menurunkan angka dropout, dan memperbaiki reputasi institusi melalui kebijakan berbasis data.
 
 ## 💡 Rekomendasi Action Items
 

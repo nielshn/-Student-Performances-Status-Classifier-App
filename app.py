@@ -6,7 +6,7 @@ import csv
 
 # Load model dan preprocessor
 preprocessor = joblib.load("model/preprocessor.pkl")
-model = joblib.load("model/xgboost_model.pkl")
+model = joblib.load("model/randomforest_model.pkl")
 status_map = {0: "Dropout", 1: "Graduate", 2: "Enrolled"}
 
 # Helper function: auto delimiter detection
