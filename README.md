@@ -137,13 +137,13 @@ Tiga model utama digunakan dan dibandingkan pada data uji:
 
 | Class        | Precision | Recall | F1-score | Support |
 | ------------ | --------- | ------ | -------- | ------- |
-| 0 (Dropout)  | 0.84      | 0.71   | 0.77     | 284     |
-| 1 (Enrolled) | 0.81      | 0.90   | 0.86     | 442     |
-| 2 (Graduate) | 0.47      | 0.45   | 0.46     | 159     |
+| 0 (Dropout)  | 0.00      | 0.00   | 0.00     | 10      |
+| 1 (Enrolled) | 0.84      | 0.97   | 0.90     | 101     |
+| 2 (Graduate) | 0.78      | 0.41   | 0.54     | 17      |
 
-- **Accuracy:** 0.76
-- **Macro F1-score:** 0.69
-- **Weighted F1-score:** 0.76
+- **Accuracy:** 0.82
+- **Macro F1-score:** 0.48
+- **Weighted F1-score:** 0.78
 
 ---
 
@@ -151,13 +151,13 @@ Tiga model utama digunakan dan dibandingkan pada data uji:
 
 | Class        | Precision | Recall | F1-score | Support |
 | ------------ | --------- | ------ | -------- | ------- |
-| 0 (Dropout)  | 0.83      | 0.73   | 0.78     | 284     |
-| 1 (Enrolled) | 0.81      | 0.92   | 0.86     | 442     |
-| 2 (Graduate) | 0.52      | 0.42   | 0.46     | 159     |
+| 0 (Dropout)  | 0.00      | 0.00   | 0.00     | 10      |
+| 1 (Enrolled) | 0.83      | 0.90   | 0.87     | 101     |
+| 2 (Graduate) | 0.53      | 0.47   | 0.50     | 17      |
 
 - **Accuracy:** 0.77
-- **Macro F1-score:** 0.70
-- **Weighted F1-score:** 0.76
+- **Macro F1-score:** 0.46
+- **Weighted F1-score:** 0.75
 
 ---
 
@@ -165,35 +165,34 @@ Tiga model utama digunakan dan dibandingkan pada data uji:
 
 | Class        | Precision | Recall | F1-score | Support |
 | ------------ | --------- | ------ | -------- | ------- |
-| 0 (Dropout)  | 0.81      | 0.71   | 0.76     | 284     |
-| 1 (Enrolled) | 0.82      | 0.91   | 0.86     | 442     |
-| 2 (Graduate) | 0.50      | 0.45   | 0.47     | 159     |
+| 0 (Dropout)  | 0.25      | 0.10   | 0.14     | 10      |
+| 1 (Enrolled) | 0.84      | 0.89   | 0.87     | 101     |
+| 2 (Graduate) | 0.47      | 0.47   | 0.47     | 17      |
 
-- **Accuracy:** 0.76
-- **Macro F1-score:** 0.70
+- **Accuracy:** 0.77
+- **Macro F1-score:** 0.49
 - **Weighted F1-score:** 0.76
 
 ---
 
 > **Catatan:**  
-> Model **XGBoost** menunjukkan performa terbaik secara keseluruhan pada data uji, terutama pada kelas mayoritas (Enrolled dan Dropout), meskipun performa pada kelas Graduate masih perlu ditingkatkan. Model ini dipilih untuk deployment karena kombinasi akurasi, macro F1-score, dan ketahanannya terhadap data tidak seimbang.
+> Model **Random Forest** memberikan akurasi dan weighted F1-score tertinggi pada data uji, terutama pada kelas mayoritas (Enrolled). Namun, performa pada kelas Dropout masih sangat rendah (F1-score 0.00), menandakan model masih kesulitan mengenali mahasiswa yang berpotensi dropout. Model XGBoost dan CatBoost juga menunjukkan pola serupa, dengan performa terbaik pada kelas mayoritas.
 
 ---
 
 ## ✅ Conclusion
 
-Berdasarkan analisis dan hasil modeling, ditemukan beberapa temuan utama terkait karakteristik mahasiswa yang berpotensi dropout dan insight bagi institusi pendidikan:
+Berdasarkan analisis dan hasil modeling, berikut insight utama terkait prediksi status mahasiswa:
 
-- **Karakteristik Mahasiswa Dropout:**  
-  Mahasiswa yang berpotensi dropout umumnya memiliki nilai akademik rendah pada semester awal, tingkat kehadiran yang buruk, serta berasal dari latar belakang sosial ekonomi yang kurang mendukung (misal: pendapatan keluarga rendah, pendidikan orang tua rendah, atau tidak menerima beasiswa).
-- **Faktor Risiko:**  
-  Program studi tertentu, mahasiswa laki-laki, dan mereka yang tidak aktif dalam kegiatan akademik cenderung memiliki risiko dropout lebih tinggi.
-- **Alasan Dropout:**  
-  Selain faktor akademik, tekanan ekonomi dan kurangnya dukungan sosial menjadi alasan utama mahasiswa tidak melanjutkan studi.
+- **Model sangat baik dalam mengklasifikasikan mahasiswa yang masih aktif (Enrolled), namun kurang optimal dalam mendeteksi mahasiswa Dropout dan Graduate.**
+- **Kelas Dropout** sangat sulit diprediksi, kemungkinan karena jumlah data yang sangat sedikit (minoritas) atau fitur yang kurang informatif untuk membedakan kelas ini.
+- **Faktor utama** yang mempengaruhi prediksi adalah nilai akademik semester awal, tingkat kehadiran, dan beberapa faktor sosial ekonomi.
 - **Manfaat Model:**  
-  Model prediksi ini dapat digunakan institusi untuk mengidentifikasi mahasiswa berisiko sejak awal semester, sehingga intervensi seperti mentoring, remedial, atau bantuan finansial dapat diberikan secara tepat sasaran.
+  Model dapat digunakan institusi untuk mengidentifikasi mahasiswa yang berisiko, namun perlu dilakukan perbaikan lebih lanjut (misal: penyeimbangan data, feature engineering tambahan) agar prediksi pada kelas Dropout lebih akurat.
 - **Dampak Bisnis:**  
-  Dengan sistem ini, kampus dapat meningkatkan tingkat kelulusan, menurunkan angka dropout, dan memperbaiki reputasi institusi melalui kebijakan berbasis data.
+  Sistem prediksi ini tetap dapat membantu kampus dalam memantau mahasiswa aktif dan lulusan, namun untuk intervensi dini pada potensi dropout, perlu pengembangan lebih lanjut.
+
+---
 
 ## 💡 Rekomendasi Action Items
 
@@ -205,7 +204,7 @@ Berdasarkan analisis dan hasil modeling, ditemukan beberapa temuan utama terkait
 
 ## 🚀 Deployment
 
-Model final XGBoost disimpan dalam format `.pkl` dan digunakan oleh aplikasi Streamlit untuk prediksi real-time berdasarkan input pengguna.
+Model final Random Forest disimpan dalam format `.pkl` dan digunakan oleh aplikasi Streamlit untuk prediksi real-time berdasarkan input pengguna.
 
 ## 📂 Project Structure
 
